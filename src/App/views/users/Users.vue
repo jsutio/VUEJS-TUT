@@ -1,5 +1,5 @@
 <script setup>
-import MaintenanceTable from '../../Components/datatables/MaintenanceTable'
+import MaintenanceTableVue from "../../Components/datatables/MaintenanceTable.vue";
 
 </script>
 
