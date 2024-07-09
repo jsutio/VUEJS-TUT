@@ -1,5 +1,9 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Users from "../App/views/users/Users.vue";
+import Products from "../App/views/products/Products.vue";
+import { components } from "vuetify/dist/vuetify-labs.js";
+
+
 const routes = [
     {
         path: "/",
@@ -13,6 +17,7 @@ const routes = [
     {
         path: "/products",
         name: "Products",
+        component: Products
     }
 ]
  
