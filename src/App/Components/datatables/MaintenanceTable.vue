@@ -1,3 +1,9 @@
+<script setup>
+import UserForm from '../../views/users/UserForm.vue';
+import ViewUser from '../../views/users/ViewUser.vue';
+import DeleteForm from '../dialog/DeleteForm.vue';
+</script>
+
 <template>
   <v-card flat>
     <v-card-title class="d-flex align-center pe-2">
@@ -10,26 +16,12 @@
 
       <!-- DATA TABLE ACTIONS -->
       <template v-slot:item.action="{ item }">
-        <v-menu>
-          <template v-slot:activator="{ props }">
-            <v-btn v-bind="props" icon="mdi-dots-vertical" density="compact" class="ms-1" variant="plain"
-              color="blue-darken-2" />
-          </template>
-          <v-list>
-            <v-list-item>
-              <v-btn size="small" prepend-icon="mdi-pencil" variant="plain" color="green-darken-3">Edit</v-btn>
-            </v-list-item>
-            <v-list-item>
-              <v-btn size="small" prepend-icon="mdi-eye-settings-outline" variant="plain"
-                color="blue-darken-2">View</v-btn>
-            </v-list-item>
-            <v-list-item>
-              <v-btn size="small" prepend-icon="mdi-delete-outline" variant="plain" color="red-darken-4">Delete</v-btn>
-            </v-list-item>
-          </v-list>
-        </v-menu>
+        <div class="d-flex">
+          <UserForm :item="item" v-if="isActive"/>
+          <ViewUser :item="item" />
+          <DeleteForm :item="item" :active = "isActive"/>
+        </div>
       </template>
-
 
       <template v-slot:header.stock>
         <div class="text-end">Stock</div>
@@ -55,13 +47,14 @@
       <template v-slot:tfoot>
         <tr>
           <td colspan="5">
-            <v-switch v-model="isActive" :label="isActive ? 'showing active recorrds' : 'showing inactive records'"
+            <v-switch v-model="isActive" 
+            @change="showRecords(isActive,'')"
+             :label="isActive ? 'showing active records' : 'showing inactive records'"
               color="red">
             </v-switch>
           </td>
         </tr>
       </template>
-
     </v-data-table>
   </v-card>
 </template>
@@ -73,13 +66,16 @@
 export default {
   data() {
     return {
-      isActive: true,
-      search: '',
+      isActive: this.active,
+      search: this.searchStr
     }
   },
   props: {
+    searchStr: String,
     items: Object,
-    headers: Object
+    headers: Object,
+    active: Boolean,
+    showRecords: Function,
 
   }
 }
