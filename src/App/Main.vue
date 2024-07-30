@@ -12,7 +12,6 @@ await AuthStore.logOut();
 }
 </script>
 
-
 <template>
    <v-app id="inspire">
      <v-navigation-drawer v-model="drawer">
@@ -30,6 +29,9 @@ await AuthStore.logOut();
       </v-btn>
      </v-app-bar>
 
+
+     <!-- Comment -->
+      
      <v-main>
        <router-view />
      </v-main>
